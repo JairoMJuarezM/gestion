@@ -13,5 +13,10 @@ class Admin extends Controller
         $this->views->getView('admin', 'home', $data);
     }
 
-   
+   public function crearcarpeta() 
+   {
+    print_r($_POST);
+    exit;
+    $nombre = $_POST['nombre'];
+   }
 }

@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         responsive: true, 
         order: [[1, 'desc']]
     });
+
     btnNuevo.addEventListener('click', function () {
         title.textContent = 'NUEVO USUARIO';
         frm.id_usuario.value = '';
@@ -51,17 +52,11 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             const data = new FormData(frm);
             const http = new XMLHttpRequest();
-
             const url = base_url + 'usuarios/guardar';
-
             http.open("POST", url, true);
-
             http.send(data);
-
             http.onreadystatechange = function () {
-
                 if (this.readyState == 4 && this.status == 200) {
-
                     const res = JSON.parse(this.responseText);
                     alertaPersonalizada(res.tipo, res.mensaje)
                     if (res.tipo == 'success') {
@@ -69,8 +64,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         myModal.hide();
                         tblUsuarios.ajax.reload();
                     }
-
-
                 }
 
             };
