@@ -7,17 +7,20 @@ const modalCarpeta = document.querySelector("#modalCarpeta");
 const myModal1 = new bootstrap.Modal(modalCarpeta);
 const frmCaperta = document.querySelector('#frmCaperta');
 
-document.addEventListener('DOMContentLoaded', function(){
-    btnUpload.addEventListener('click', function(){
+const btnSubirArchivo = document.querySelector('#btnSubirArchivo');
+const file = document.querySelector('#file');
+
+document.addEventListener('DOMContentLoaded', function () {
+    btnUpload.addEventListener('click', function () {
         myModal.show();
     })
 
-    btnNuevaCarpeta.addEventListener('click', function(){
+    btnNuevaCarpeta.addEventListener('click', function () {
         myModal.hide();
         myModal1.show();
     })
 
-    frmCaperta.addEventListener('submit', function(e){
+    frmCaperta.addEventListener('submit', function (e) {
         e.preventDefault();
         if (frmCaperta.nombre.value == '') {
             alertaPersonalizada('warning', 'El NOMBRE ES REQUERIDO')
@@ -29,16 +32,21 @@ document.addEventListener('DOMContentLoaded', function(){
             http.send(data);
             http.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-                    console.log(this.responseText);
-                    //const res = JSON.parse(this.responseText);
-                    //alertaPersonalizada(res.tipo, res.mensaje)
-                    //if (res.tipo == 'success') {
-                        // frm.reset();
-                        // myModal.hide();
-                    //}
+                    const res = JSON.parse(this.responseText);
+                    alertaPersonalizada(res.tipo, res.mensaje)
+                    if (res.tipo == 'success') {
+                        setTimeout(() => {
+                           window.location.reload();
+                        }, 1500);
+                    }
                 }
 
             };
         }
+    })
+
+    // SUBIR ARCHIVOS
+    btnSubirArchivo.addEventListener('click', function(){
+
     })
 })
