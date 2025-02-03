@@ -13,9 +13,10 @@ class Admin extends Controller
         $data['title'] = 'Panel de administración';
         $data['script'] = 'files.js';
         $carpetas = $this->model->getCarpetas($this->id_usuario);
-        for ($i=0; $i < count($carpetas) ; $i++) { 
-            $carpetas[$i]['color'] = substr(md5( $carpetas[$i]['id']), 0, 6);
-            $carpetas[$i]['fecha']= $this->time_ago(strtotime($carpetas[$i]['fecha_create']));
+        $data['archivos'] = $this->model->getArchivos($this->id_usuario);
+        for ($i = 0; $i < count($carpetas); $i++) {
+            $carpetas[$i]['color'] = substr(md5($carpetas[$i]['id']), 0, 6);
+            $carpetas[$i]['fecha'] = $this->time_ago(strtotime($carpetas[$i]['fecha_create']));
         }
         $data['carpetas'] = $carpetas;
         $this->views->getView('admin', 'home', $data);
@@ -38,13 +39,40 @@ class Admin extends Controller
                 }
             } else {
                 $res = array('tipo' => 'warning', 'mensaje' => 'LA CARPETA YA EXISTE');
-            }  
+            }
         }
         echo json_encode($res, JSON_UNESCAPED_UNICODE);
         die();
     }
 
-    function time_ago ($fecha){
+    public function subirarchivo()
+    {
+        $id_carpeta = (empty($_POST['id_carpeta'])) ? 1 : $_POST['id_carpeta'];
+        $archivo = $_FILES['file'];
+        $name = $archivo['name'];
+        $tmp = $archivo['tmp_name'];
+        $tipo = $archivo['type'];
+        $data = $this->model->subirArchivo($name, $tipo, $id_carpeta);
+        if ($data > 0) {
+            $destino = 'Assets/archivos';
+            if (!file_exists($destino)) {
+                mkdir($destino);
+            }
+            $carpeta = $destino . '/' . $id_carpeta;
+            if (!file_exists($carpeta)) {
+                mkdir($carpeta);
+            }
+            move_uploaded_file($tmp, $carpeta . '/' . $name);
+            $res = array('tipo' => 'success', 'mensaje' => 'ARCHIVO SUBIDO');
+        } else {
+            $res = array('tipo' => 'error', 'mensaje' => 'ERROR AL SUBIR EL ARCHIVO');
+        }
+        echo json_encode($res, JSON_UNESCAPED_UNICODE);
+        die();
+    }
+
+    function time_ago($fecha)
+    {
         $diferencia = time() - $fecha;
         if ($diferencia < 1) {
             return 'Justo ahora';
@@ -62,7 +90,7 @@ class Admin extends Controller
             if ($d >= 1) {
                 //redondear
                 $t = round($d);
-                return 'hace ' . $t. ' ' .$str. ($t > 1 ? 's' : '');
+                return 'hace ' . $t . ' ' . $str . ($t > 1 ? 's' : '');
             }
         }
     }

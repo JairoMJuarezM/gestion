@@ -48,6 +48,20 @@ class AdminModel extends Query{
         $datos = array($nombre, $apellido, $correo, $telefono, $direccion, $rol, $id);
         return $this->save($sql, $datos);      
     }
+
+    //SUBIR ARCHIVO
+    public function subirArchivo($name, $tipo, $id_carpeta)
+    {
+        $sql = "INSERT INTO archivos (nombre, tipo, id_carpeta) VALUES (?,?,?)";
+        $datos = array($name, $tipo, $id_carpeta);
+        return $this->insertar($sql, $datos);      
+    }
+
+    public function getArchivos($id_usuario){
+        $sql = "SELECT a.* FROM archivos a INNER JOIN carpetas C ON a.id_carpeta = c.id WHERE c.id_usuario = $id_usuario ORDER BY a.id DESC LIMIT 10";
+        return $this -> selectAll($sql);
+
+    }
 }
 
 ?>
