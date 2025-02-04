@@ -71,6 +71,13 @@ class Admin extends Controller
         die();
     }
 
+    public function ver($id_carpeta){
+        $data['title'] = 'Listado de archivos';
+       // $data['script'] = 'files.js';
+        //$carpetas = $this->model->getCarpetas($this->id_usuario);
+        $this->views->getView('admin', 'archivos', $data);
+    }
+
     function time_ago($fecha)
     {
         $diferencia = time() - $fecha;
