@@ -13,7 +13,7 @@ class Admin extends Controller
         $data['title'] = 'Panel de administración';
         $data['script'] = 'files.js';
         $carpetas = $this->model->getCarpetas($this->id_usuario);
-        $data['archivos'] = $this->model->getArchivos($this->id_usuario);
+        $data['archivos'] = $this->model->getArchivosRecientes($this->id_usuario);
         for ($i = 0; $i < count($carpetas); $i++) {
             $carpetas[$i]['color'] = substr(md5($carpetas[$i]['id']), 0, 6);
             $carpetas[$i]['fecha'] = $this->time_ago(strtotime($carpetas[$i]['fecha_create']));
@@ -74,7 +74,7 @@ class Admin extends Controller
     public function ver($id_carpeta){
         $data['title'] = 'Listado de archivos';
        // $data['script'] = 'files.js';
-        //$carpetas = $this->model->getCarpetas($this->id_usuario);
+        $data['archivos'] = $this->model->getArchivos($this->id_usuario);
         $this->views->getView('admin', 'archivos', $data);
     }
 
