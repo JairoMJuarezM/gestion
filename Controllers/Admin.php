@@ -74,7 +74,7 @@ class Admin extends Controller
     public function ver($id_carpeta){
         $data['title'] = 'Listado de archivos';
        // $data['script'] = 'files.js';
-        $data['archivos'] = $this->model->getArchivos($this->id_usuario);
+        $data['archivos'] = $this->model->getArchivos($id_carpeta, $this->id_usuario);
         $this->views->getView('admin', 'archivos', $data);
     }
 
