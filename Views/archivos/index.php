@@ -32,7 +32,7 @@
                 <?php } ?>
             </div>
             <div class="section-description">
-                <h1>Recent Files</h1>
+                <h1>Todos los archivos</h1>
             </div>
             <div class="row">
                 <?php foreach ($data['archivos'] as $archivo) { ?>
@@ -58,7 +58,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <?php 

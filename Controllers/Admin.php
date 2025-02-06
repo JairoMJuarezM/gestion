@@ -12,11 +12,12 @@ class Admin extends Controller
     {
         $data['title'] = 'Panel de administración';
         $data['script'] = 'files.js';
+        $data['active'] = 'recent';
         $carpetas = $this->model->getCarpetas($this->id_usuario);
         $data['archivos'] = $this->model->getArchivosRecientes($this->id_usuario);
         for ($i = 0; $i < count($carpetas); $i++) {
             $carpetas[$i]['color'] = substr(md5($carpetas[$i]['id']), 0, 6);
-            $carpetas[$i]['fecha'] = $this->time_ago(strtotime($carpetas[$i]['fecha_create']));
+            $carpetas[$i]['fecha'] = time_ago(strtotime($carpetas[$i]['fecha_create']));
         }
         $data['carpetas'] = $carpetas;
         $this->views->getView('admin', 'home', $data);
@@ -73,32 +74,10 @@ class Admin extends Controller
 
     public function ver($id_carpeta){
         $data['title'] = 'Listado de archivos';
-       // $data['script'] = 'files.js';
+        $data['active'] = 'detail';
         $data['archivos'] = $this->model->getArchivos($id_carpeta, $this->id_usuario);
         $this->views->getView('admin', 'archivos', $data);
     }
 
-    function time_ago($fecha)
-    {
-        $diferencia = time() - $fecha;
-        if ($diferencia < 1) {
-            return 'Justo ahora';
-        }
-        $condicion = array(
-            12 * 30 * 24 * 60 * 60  => 'año',
-            30 * 24 * 60 * 60 => 'mes',
-            24 * 60 * 60 => 'dia',
-            60 * 60 => 'hora',
-            60 => 'minuto',
-            1 => 'segundo'
-        );
-        foreach ($condicion as $secs => $str) {
-            $d = $diferencia / $secs;
-            if ($d >= 1) {
-                //redondear
-                $t = round($d);
-                return 'hace ' . $t . ' ' . $str . ($t > 1 ? 's' : '');
-            }
-        }
-    }
+    
 }
