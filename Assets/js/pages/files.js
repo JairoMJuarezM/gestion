@@ -20,6 +20,12 @@ const btnSubir = document.querySelector('#btnSubir');
 //VER ARCHIVOS
 const btnVer = document.querySelector('#btnVer');
 
+//COMPARTIR ARCHIVOS ENTRE USUARIOS
+const compartir = document.querySelectorAll('.compartir');
+const modalUsuarios = document.querySelector("#modalUsuarios");
+const myModalUser = new bootstrap.Modal(modalUsuarios);
+const id_archivo = document.querySelector('#id_archivo');
+
 document.addEventListener('DOMContentLoaded', function () {
     btnUpload.addEventListener('click', function () {
         myModal.show();
@@ -101,4 +107,20 @@ document.addEventListener('DOMContentLoaded', function () {
     btnVer.addEventListener('click', function(){
         window.location = base_url + 'admin/ver/' + id_carpeta.value;
     })
+
+    $(".js-example-basic-multiple-limit").select2({
+        maximumSelectionLength: 2
+    });
+
+    //AGREGAR CLICK AL ENLACE COMPARTIR
+    compartir.forEach(enlace => {
+        enlace.addEventListener('click', function(e){
+            compartirArchivo(e.target.id);
+        })
+    });
 })
+
+function compartirArchivo(id) {
+    id_archivo.value = id;
+    myModalUser.show();
+}
