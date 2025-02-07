@@ -76,11 +76,12 @@
             <form id="frmCompartir">
                 <div class="modal-body">
                     <input type="hidden" id="id_archivo">
-                    <select class="js-states form-control" tabindex="-1" style="display: none; width: 100%" multiple="multiple">
+                    <select class="js-states form-control" id="usuarios" name="usuarios[]" tabindex="-1" style="display: none; width: 100%" multiple="multiple">
                     </select>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="button">Compartir</button>
+                    <button class="btn btn-danger" type="button" ata-bs-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-primary" type="submit">Compartir</button>
                 </div>
             </form>
         </div>

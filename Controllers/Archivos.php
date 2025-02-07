@@ -38,4 +38,8 @@ class Archivos extends Controller
         echo json_encode($data);
         die();
     }
+
+    public function compartir(){
+        print_r($_POST);
+    }
 }

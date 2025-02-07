@@ -25,7 +25,8 @@ const compartir = document.querySelectorAll('.compartir');
 const modalUsuarios = document.querySelector("#modalUsuarios");
 const myModalUser = new bootstrap.Modal(modalUsuarios);
 const id_archivo = document.querySelector('#id_archivo');
-const frmCompartir = document.querySelector('#id_archivo');
+const frmCompartir = document.querySelector('#frmCompartir');
+const usuarios = document.querySelector('#usuarios');
 
 document.addEventListener('DOMContentLoaded', function () {
     btnUpload.addEventListener('click', function () {
@@ -97,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
             id_carpeta.value = e.target.id;
             myModal2.show();
         })
-        
+
     });
 
     btnSubir.addEventListener('click', function () {
@@ -105,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
         file.click();
     })
 
-    btnVer.addEventListener('click', function(){
+    btnVer.addEventListener('click', function () {
         window.location = base_url + 'admin/ver/' + id_carpeta.value;
     })
 
@@ -118,22 +119,48 @@ document.addEventListener('DOMContentLoaded', function () {
             dataType: 'json',
             delay: 250,
             data: function (params) {
-              return {
-                q: params.term
-              };
+                return {
+                    q: params.term
+                };
             },
-            processResults: function (data) {    
-              return {
-                results: data
-              };
+            processResults: function (data) {
+                return {
+                    results: data
+                };
             },
             cache: true
-          },
+        },
     });
 
+    frmCompartir.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (id_archivo.value == '' || usuarios.value == '') {
+            alertaPersonalizada('warning', 'TODOS LOS CAMPOS SON REQUERIDOS ')
+        } else {
+            const data = new FormData(frmCompartir);
+            const http = new XMLHttpRequest();
+            const url = base_url + 'archivos/compartir';
+            http.open("POST", url, true);
+            http.send(data);
+            http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                    //const res = JSON.parse(this.responseText);
+                   // alertaPersonalizada(res.tipo, res.mensaje)
+                   // if (res.tipo == 'success') {
+                    //    setTimeout(() => {
+                     //       window.location.reload();
+                     //   }, 1500);
+                    //}
+                }
+
+            };
+
+        }
+    })
     //AGREGAR CLICK AL ENLACE COMPARTIR
     compartir.forEach(enlace => {
-        enlace.addEventListener('click', function(e){
+        enlace.addEventListener('click', function (e) {
             compartirArchivo(e.target.id);
         })
     });
