@@ -27,4 +27,15 @@ class Archivos extends Controller
 
         $this->views->getView('archivos', 'index', $data);
     }
+
+    public function getUsuarios()
+    {
+        $valor = $_GET['q'];
+        $data = $this->model->getUsuarios($valor);
+        for ($i=0; $i < count($data) ; $i++) { 
+            $data[$i]['text'] = $data[$i]['nombre'] . ' - ' . $data[$i]['correo'];
+        }
+        echo json_encode($data);
+        die();
+    }
 }

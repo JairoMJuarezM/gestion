@@ -25,6 +25,7 @@ const compartir = document.querySelectorAll('.compartir');
 const modalUsuarios = document.querySelector("#modalUsuarios");
 const myModalUser = new bootstrap.Modal(modalUsuarios);
 const id_archivo = document.querySelector('#id_archivo');
+const frmCompartir = document.querySelector('#id_archivo');
 
 document.addEventListener('DOMContentLoaded', function () {
     btnUpload.addEventListener('click', function () {
@@ -108,8 +109,26 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location = base_url + 'admin/ver/' + id_carpeta.value;
     })
 
-    $(".js-example-basic-multiple-limit").select2({
-        maximumSelectionLength: 2
+    $(".js-states").select2({
+        placeholder: 'Buscar y agregar usuarios',
+        maximumSelectionLength: 2,
+        dropdownParent: $('#modalUsuarios'),
+        ajax: {
+            url: base_url + 'archivos/getUsuarios',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+              return {
+                q: params.term
+              };
+            },
+            processResults: function (data) {    
+              return {
+                results: data
+              };
+            },
+            cache: true
+          },
     });
 
     //AGREGAR CLICK AL ENLACE COMPARTIR

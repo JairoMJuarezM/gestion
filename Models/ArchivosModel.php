@@ -16,6 +16,11 @@ class ArchivosModel extends Query{
         return $this -> selectAll($sql);
 
     }
+
+    public function getUsuarios($valor){
+        $sql = "SELECT * FROM usuarios WHERE correo LIKE '%" . $valor . "%' AND estado = 1 LIMIT 10";
+        return $this -> selectAll($sql);
+    }
 }
 
 ?>
