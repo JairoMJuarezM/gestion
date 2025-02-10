@@ -112,7 +112,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     $(".js-states").select2({
         placeholder: 'Buscar y agregar usuarios',
-        maximumSelectionLength: 2,
+        maximumSelectionLength: 5,
+        minimumInputLength: 2,
         dropdownParent: $('#modalUsuarios'),
         ajax: {
             url: base_url + 'archivos/getUsuarios',

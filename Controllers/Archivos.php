@@ -33,13 +33,18 @@ class Archivos extends Controller
         $valor = $_GET['q'];
         $data = $this->model->getUsuarios($valor);
         for ($i=0; $i < count($data) ; $i++) { 
-            $data[$i]['text'] = $data[$i]['nombre'] . ' - ' . $data[$i]['correo'];
+            $data[$i]['text'] = $data[$i]['correo'];
         }
         echo json_encode($data);
         die();
     }
 
     public function compartir(){
-        print_r($_POST);
+        $id_archivo = $_POST['id_archivo'];
+        $usuarios = $_POST['usuarios'];
+        for ($i=0; $i < count($usuarios); $i++) { 
+            $dato = $this->model->getUsuario($usuarios[$i]);
+            $this->model->registrarDetalle($dato['correo'], $id_archivo, $this->id_usuario);
+        }
     }
 }
