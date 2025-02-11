@@ -42,9 +42,22 @@ class Archivos extends Controller
     public function compartir(){
         $id_archivo = $_POST['id_archivo'];
         $usuarios = $_POST['usuarios'];
+        $res = 0;
         for ($i=0; $i < count($usuarios); $i++) { 
             $dato = $this->model->getUsuario($usuarios[$i]);
-            $this->model->registrarDetalle($dato['correo'], $id_archivo, $this->id_usuario);
+            $result = $this->model->getDetalle($dato['correo'], $id_archivo);
+            if (empty($result)) {
+                $res = $this->model->registrarDetalle($dato['correo'], $id_archivo, $this->id_usuario);
+            }else {
+                $res = 1;
+            }
         }
+        if ($res > 0) {
+            $res = array('tipo' => 'success', 'mensaje' => 'ARCHIVOS COMPARTIDOS');
+        } else {
+            $res = array('tipo' => 'error', 'mensaje' => 'ERROR AL COMPARTIR');
+        }
+        echo json_encode($res);
+        die();
     }
 }

@@ -31,6 +31,11 @@ class ArchivosModel extends Query{
         $array = [$correo, $id_archivo, $id_usuario];
         return $this->insertar($sql, $array);
     }
+
+    public function getDetalle($correo, $id_archivo){
+        $sql = "SELECT id FROM detalle_archivos WHERE correo = '$correo' AND id_archivo = $id_archivo";
+        return $this -> select($sql);
+    }
 }
 
 ?>
