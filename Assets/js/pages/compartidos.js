@@ -18,12 +18,12 @@ function verDetalle(id_detalle) {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText);
             const res = JSON.parse(this.responseText);
-            let html = `<span class="mailbox-open-date">${res.fecha_add}</span>
+            let html = `<span class="mailbox-open-date">${res.fecha}</span>
                                         <h5 class="mailbox-open-title">
                                             Work together with better collaboration tools
                                         </h5>
                                         <div class="mailbox-open-author">
-                                            <img src="<?php echo BASE_URL . 'Assets/images/favicon.jpg'; ?>" alt="">
+                                            <img src="${ base_url + 'Assets/images/favicon.jpg'}" alt="">
                                             <div class="mailbox-open-author-info">
                                                 <span class="mailbox-open-author-info-email d-block">${res.correo}</span>
                                                 <span class="mailbox-open-author-info-to">To <span class="badge badge-info align-self-center">devs</span></span>
@@ -46,7 +46,7 @@ function verDetalle(id_detalle) {
                                                             <span class="attachments-files-list-item-title">Invoice.pdf</span>
                                                             <span class="attachments-files-list-item-size">14 MB</span>
                                                         </span>
-                                                        <a href="${base_url + 'Assets/archivos/' + res.nombre}" class="attachments-files-list-item-download-btn">
+                                                        <a href="${base_url + 'Assets/archivos/' + res.id_carpeta + '/' + res.nombre}" class="attachments-files-list-item-download-btn">
                                                             <i class="material-icons-outlined">
                                                                 download
                                                             </i>
@@ -58,6 +58,7 @@ function verDetalle(id_detalle) {
                                         <div class="mailbox-open-content-reply">
                                             <div id="reply-editor"></div>
                                         </div>`;
+                                        document.querySelector('#content-info').innerHTML=html;
         }
 
     };

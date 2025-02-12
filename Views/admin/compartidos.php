@@ -55,7 +55,7 @@
                                             <?php } ?>
                                         </ul>
                                     </div>
-                                    <div class="mailbox-open-content col-xl-9">
+                                    <div class="mailbox-open-content col-xl-9" id="content-info">
                                         
                                     </div>
                                 </div>
