@@ -28,6 +28,9 @@ const id_archivo = document.querySelector('#id_archivo');
 const frmCompartir = document.querySelector('#frmCompartir');
 const usuarios = document.querySelector('#usuarios');
 
+const btnCompartir = document.querySelector('#btnCompartir');
+const container_archivos = document.querySelector('#container-archivos');
+
 document.addEventListener('DOMContentLoaded', function () {
     btnUpload.addEventListener('click', function () {
         myModal.show();
@@ -146,13 +149,13 @@ document.addEventListener('DOMContentLoaded', function () {
             http.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     console.log(this.responseText);
-                    const res = JSON.parse(this.responseText);
-                    alertaPersonalizada(res.tipo, res.mensaje);
-                    if (res.tipo == 'success') {
-                        id_archivo.value = '';
-                        $('.js-states').val(null).trigger('change');
-                        myModalUser.hide();
-                    }
+                    // const res = JSON.parse(this.responseText);
+                    // alertaPersonalizada(res.tipo, res.mensaje);
+                    // if (res.tipo == 'success') {
+                    //     id_archivo.value = '';
+                    //     $('.js-states').val(null).trigger('change');
+                    //     myModalUser.hide();
+                    // }
                 }
 
             };
@@ -165,9 +168,48 @@ document.addEventListener('DOMContentLoaded', function () {
             compartirArchivo(e.target.id);
         })
     });
+
+    //COMPARTIR ARCHIVOS POR CARPETA
+    btnCompartir.addEventListener('click', function () {
+        verArchivos();
+
+    })
 })
 
 function compartirArchivo(id) {
     id_archivo.value = id;
     myModalUser.show();
+}
+
+function verArchivos() {
+    const http = new XMLHttpRequest();
+    const url = base_url + 'archivos/verArchivos/' + id_carpeta.value;
+    http.open("GET", url, true);
+    http.send();
+    http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const res = JSON.parse(this.responseText);
+            let html = '';
+            if (res.length > 0) {
+                res.forEach(archivo => {
+                    html += `<div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="${archivo.id}" name="archivos[]"
+                                                    id="flexCheckDefault_${archivo.id}">
+                                                    <label class="form-check-label" for="flexCheckDefault_${archivo.id}">
+                                                    ${archivo.nombre}
+                                                    </label>
+                                                </div>`;
+
+                });
+                container_archivos.innerHTML = html;
+            } else {
+
+            }
+            myModal2.hide();
+            myModalUser.show();
+        }
+
+    };
+
+
 }

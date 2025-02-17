@@ -16,9 +16,9 @@ class Archivos extends Controller
         $data['archivos'] = $this->model->getArchivos($this->id_usuario);
 
 
-        
+
         $carpetas = $this->model->getCarpetas($this->id_usuario);
-        
+
         for ($i = 0; $i < count($carpetas); $i++) {
             $carpetas[$i]['color'] = substr(md5($carpetas[$i]['id']), 0, 6);
             $carpetas[$i]['fecha'] = time_ago(strtotime($carpetas[$i]['fecha_create']));
@@ -32,32 +32,47 @@ class Archivos extends Controller
     {
         $valor = $_GET['q'];
         $data = $this->model->getUsuarios($valor);
-        for ($i=0; $i < count($data) ; $i++) { 
+        for ($i = 0; $i < count($data); $i++) {
             $data[$i]['text'] = $data[$i]['correo'];
         }
         echo json_encode($data);
         die();
     }
 
-    public function compartir(){
-        $id_archivo = $_POST['id_archivo'];
+    public function compartir()
+    {
         $usuarios = $_POST['usuarios'];
-        $res = 0;
-        for ($i=0; $i < count($usuarios); $i++) { 
-            $dato = $this->model->getUsuario($usuarios[$i]);
-            $result = $this->model->getDetalle($dato['correo'], $id_archivo);
-            if (empty($result)) {
-                $res = $this->model->registrarDetalle($dato['correo'], $id_archivo, $this->id_usuario);
-            }else {
-                $res = 1;
+        if (empty($_POST['archivos'])) {
+            $res = array('tipo' => 'warning', 'mensaje' => 'Seleccione un archivo');
+        } else {
+            $arhivos = $_POST['archivos'];
+            $res = 0;
+            for ($i = 0; $i < count($arhivos); $i++) {
+                for ($j = 0; $j < count($usuarios); $j++) {
+                    $dato = $this->model->getUsuario($usuarios[$j]);
+                    $result = $this->model->getDetalle($dato['correo'], $arhivos[$i]);
+                    if (empty($result)) {
+                        $res = $this->model->registrarDetalle($dato['correo'], $arhivos[$i], 
+                        $this->id_usuario);
+                    } else {
+                        $res = 1;
+                    }
+                }
+            }
+            if ($res > 0) {
+                $res = array('tipo' => 'success', 'mensaje' => 'ARCHIVOS COMPARTIDOS');
+            } else {
+                $res = array('tipo' => 'error', 'mensaje' => 'ERROR AL COMPARTIR');
             }
         }
-        if ($res > 0) {
-            $res = array('tipo' => 'success', 'mensaje' => 'ARCHIVOS COMPARTIDOS');
-        } else {
-            $res = array('tipo' => 'error', 'mensaje' => 'ERROR AL COMPARTIR');
-        }
         echo json_encode($res);
+        die();
+    }
+
+    public function verArchivos($id_carpeta)
+    {
+        $data = $this->model->getArchivosCarpeta($id_carpeta);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();
     }
 }
