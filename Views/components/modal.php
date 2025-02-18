@@ -76,9 +76,9 @@
             <form id="frmCompartir">
                 <div class="modal-body">
                     <div id="container-archivos">
-
+                        <input type="text" id="id_archivo" name="archivos[]">
                     </div>
-                    <input type="hidden" id="id_archivo" value="1" name="id_archivo">
+
                     <select class="js-states form-control" id="usuarios" name="usuarios[]" tabindex="-1" style="display: none; width: 100%" multiple="multiple">
                     </select>
                 </div>

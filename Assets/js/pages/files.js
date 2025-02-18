@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     frmCompartir.addEventListener('submit', function (e) {
         e.preventDefault();
-        if (id_archivo.value == '' || usuarios.value == '') {
+        if (usuarios.value == '') {
             alertaPersonalizada('warning', 'TODOS LOS CAMPOS SON REQUERIDOS ')
         } else {
             const data = new FormData(frmCompartir);
@@ -149,13 +149,13 @@ document.addEventListener('DOMContentLoaded', function () {
             http.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     console.log(this.responseText);
-                    // const res = JSON.parse(this.responseText);
-                    // alertaPersonalizada(res.tipo, res.mensaje);
-                    // if (res.tipo == 'success') {
-                    //     id_archivo.value = '';
-                    //     $('.js-states').val(null).trigger('change');
-                    //     myModalUser.hide();
-                    // }
+                    const res = JSON.parse(this.responseText);
+                    alertaPersonalizada(res.tipo, res.mensaje);
+                    if (res.tipo == 'success') {
+                        id_archivo.value = '';
+                        $('.js-states').val(null).trigger('change');
+                        myModalUser.hide();
+                    }
                 }
 
             };
@@ -201,10 +201,17 @@ function verArchivos() {
                                                 </div>`;
 
                 });
-                container_archivos.innerHTML = html;
+
             } else {
+                html = `<div class="alert alert-custom alert-indicator-right indicator-warning" role="alert">
+                                                    <div class="alert-content">
+                                                        <span class="alert-title">Warning!</span>
+                                                        <span class="alert-text">Carpeta vacia</span>
+                                                    </div>
+                                                </div>`;
 
             }
+            container_archivos.innerHTML = html;
             myModal2.hide();
             myModalUser.show();
         }
