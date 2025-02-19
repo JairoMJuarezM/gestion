@@ -30,6 +30,7 @@ const usuarios = document.querySelector('#usuarios');
 
 const btnCompartir = document.querySelector('#btnCompartir');
 const container_archivos = document.querySelector('#container-archivos');
+const tblDetalle = document.querySelector('#tblDetalle tbody');
 
 document.addEventListener('DOMContentLoaded', function () {
     btnUpload.addEventListener('click', function () {
@@ -201,7 +202,7 @@ function verArchivos() {
                                                 </div>`;
 
                 });
-
+                cargarDetalle(id_carpeta.value);
             } else {
                 html = `<div class="alert alert-custom alert-indicator-right indicator-warning" role="alert">
                                                     <div class="alert-content">
@@ -209,14 +210,38 @@ function verArchivos() {
                                                         <span class="alert-text">Carpeta vacia</span>
                                                     </div>
                                                 </div>`;
-
             }
             container_archivos.innerHTML = html;
             myModal2.hide();
             myModalUser.show();
         }
-
     };
+}
 
+function cargarDetalle(id_carpeta) {
+    const http = new XMLHttpRequest();
+    const url = base_url + 'archivos/verDetalle/' + id_carpeta.value;
+    http.open("GET", url, true);
+    http.send();
+    http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const res = JSON.parse(this.responseText);
+            let html = '';
+            if (res.length > 0) {
+                res.forEach(archivo => {
+                    html += ` <tr>
+                                    <td>${archivo.nombre}</td>
+                                    <td>${archivo.correo}</td>
+                                    <td><button class="class="btn btn-danger btn-sm">Eliminar</button>></td>
+                             </tr>`;
 
+                });
+            } else {
+                html = `<tr>
+                             <td colspan="3">Ningun archivo compartido</td>
+                       </tr>`;
+            }
+           tblDetalle.innerHTML = html;
+        }
+    };
 }

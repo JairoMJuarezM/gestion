@@ -76,11 +76,26 @@
             <form id="frmCompartir">
                 <div class="modal-body">
                     <div id="container-archivos">
-                        <input type="text" id="id_archivo" name="archivos[]">
+                        <input type="hidden" id="id_archivo" name="archivos[]">
                     </div>
 
                     <select class="js-states form-control" id="usuarios" name="usuarios[]" tabindex="-1" style="display: none; width: 100%" multiple="multiple">
                     </select>
+                    <hr>
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="tblDetalle">
+                            <thead>
+                                <tr>
+                                    <th>Archivo</th>
+                                    <th>Usuario</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-danger" type="button" ata-bs-dismiss="modal">Cancelar</button>
