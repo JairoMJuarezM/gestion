@@ -66,7 +66,7 @@
 </div>
 
 <div id="modalUsuarios" class="modal fade" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="title-usuarios">Agregar usuarios</h5>
@@ -83,7 +83,7 @@
                     </select>
                     <hr>
                     <div class="table-responsive">
-                        <table class="table table-striped" id="tblDetalle">
+                        <table class="table table-striped table-hover display nowrap" style="width:100%" id="tblDetalle">
                             <thead>
                                 <tr>
                                     <th>Archivo</th>
