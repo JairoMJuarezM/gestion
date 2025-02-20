@@ -224,9 +224,10 @@ function cargarDetalle(id_carpeta) {
             dataSrc: ''
         },
         columns: [
-            { data: 'nombre' },
+            { data: 'acciones' },
             { data: 'correo' },
-            { data: 'acciones' }
+            { data: 'nombre' }
+            
         ],
         language: {
             url: 'https://cdn.datatables.net/plug-ins/2.2.1/i18n/es-ES.json',
