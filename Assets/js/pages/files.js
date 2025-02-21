@@ -30,6 +30,7 @@ const usuarios = document.querySelector('#usuarios');
 
 const btnCompartir = document.querySelector('#btnCompartir');
 const container_archivos = document.querySelector('#container-archivos');
+const btnVerDetalle = document.querySelector('#btnVerDetalle');
 
 document.addEventListener('DOMContentLoaded', function () {
     btnUpload.addEventListener('click', function () {
@@ -174,6 +175,11 @@ document.addEventListener('DOMContentLoaded', function () {
         verArchivos();
 
     })
+
+    // VER DETALLE COMPARTIDO
+    btnVerDetalle.addEventListener('click', function(){
+        window.location = base_url + 'admin/verDetalle/' + id_carpeta.value;
+    })
 })
 
 function compartirArchivo(id) {
@@ -201,7 +207,7 @@ function verArchivos() {
                                                 </div>`;
 
                 });
-                cargarDetalle(id_carpeta.value);
+                // cargarDetalle(id_carpeta.value);
             } else {
                 html = `<div class="alert alert-custom alert-indicator-right indicator-warning" role="alert">
                                                     <div class="alert-content">
@@ -215,27 +221,4 @@ function verArchivos() {
             myModalUser.show();
         }
     };
-}
-
-function cargarDetalle(id_carpeta) {
-    $('#tblDetalle').DataTable({
-        ajax: {
-            url: base_url + 'archivos/verDetalle/' + id_carpeta,
-            dataSrc: ''
-        },
-        columns: [
-            { data: 'acciones' },
-            { data: 'correo' },
-            { data: 'nombre' }
-            
-        ],
-        language: {
-            url: 'https://cdn.datatables.net/plug-ins/2.2.1/i18n/es-ES.json',
-        },
-        responsive: true, 
-        "scrollY": "200px",
-        destroy: true,
-        order: [[1, 'desc']]
-    });
-    return;
 }

@@ -75,31 +75,36 @@
             </div>
             <form id="frmCompartir">
                 <div class="modal-body">
-                    <div id="container-archivos">
-                        <input type="hidden" id="id_archivo" name="archivos[]">
-                    </div>
-
                     <select class="js-states form-control" id="usuarios" name="usuarios[]" tabindex="-1" style="display: none; width: 100%" multiple="multiple">
                     </select>
                     <hr>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover display nowrap" style="width:100%" id="tblDetalle">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Usuario</th>
-                                    <th>Archivo</th>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                    Seleccionar archivos a compartir
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <div id="container-archivos">
+                                        <input type="hidden" id="id_archivo" name="archivos[]">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <hr>
+                    <a class="btn btn-primary" href="#" id="btnVerDetalle">Ver detalle</a>
+
+
+
+                    
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-danger" type="button" ata-bs-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>
                     <button class="btn btn-primary" type="submit">Compartir</button>
                 </div>
             </form>
