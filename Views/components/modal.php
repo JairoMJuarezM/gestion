@@ -97,15 +97,13 @@
                     </div>
 
                     <hr>
-                    <a class="btn btn-primary" href="#" id="btnVerDetalle">Ver detalle</a>
-
-
-
-                    
+                    <div class="text-center">
+                        <a class="btn btn-outline-info" href="#" id="btnVerDetalle">Ver detalle</a>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-danger" type="button" data-bs-dismiss="modal">Cancelar</button>
-                    <button class="btn btn-primary" type="submit">Compartir</button>
+                    <button class="btn btn-outline-danger" type="button" data-bs-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-outline-primary" type="submit">Compartir</button>
                 </div>
             </form>
         </div>

@@ -83,7 +83,6 @@ class Admin extends Controller
     {
         $data['title'] = 'Archivos compartidos';
         $data['id_carpeta'] = $id_carpeta;
-        //$data['active'] = 'detail';
         $data['script'] = 'details.js';
         $this->views->getView('admin', 'detalle', $data);
     }
@@ -91,7 +90,8 @@ class Admin extends Controller
     public function listardetalle($id_carpeta){
         $data = $this->model->getArchivosCompartidos($id_carpeta);
         for ($i=0; $i < count($data); $i++) { 
-            $data[$i]['acciones'] = '<button class="btn btn-danger btn-sm">Eliminar</button>';
+            $data[$i]['acciones'] = '<button class="btn btn-danger btn-sm" onclick="eliminarDetalle('. 
+            $data[$i]['id'] .')">Eliminar</button>';
         }
         echo json_encode($data, JSON_UNESCAPED_UNICODE);
         die();

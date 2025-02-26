@@ -1,6 +1,7 @@
 const id_carpeta = document.querySelector('#id_carpeta');
+let tbl;
 document.addEventListener('DOMContentLoaded', function(){
-    $('#tblDetalle').DataTable({
+    tbl = $('#tblDetalle').DataTable({
         ajax: {
             url: base_url + 'admin/listardetalle/' + id_carpeta.value,
             dataSrc: ''
@@ -19,3 +20,8 @@ document.addEventListener('DOMContentLoaded', function(){
         order: [[1, 'desc']]
     });
 })
+
+function eliminarDetalle(id) {
+    const url = base_url + 'archivos/eliminarCompartido/' + id;
+    eliminarRegistro('ESTA SEGURO DE ELIMINAR', 'EL ARCHIVO COMPARTIDO SE ELIMINARÁ DE FORMA PERMANENTE EN 30 DIAS', 'SI ELIMINAR', url, tbl) 
+}

@@ -76,5 +76,15 @@ class Archivos extends Controller
         die();
     }
 
-   
+    // ELIMINAR ARCHIVOS COMPARTIDO
+    public function eliminarCompartido($id){
+        $data = $this->model->eliminarCompartido($id);
+        if ($data == 1) {
+            $res = array('tipo' => 'success', 'mensaje' => 'ARCHIVO DADO DE BAJA');
+        } else {
+            $res = array('tipo' => 'error', 'mensaje' => 'ERROR AL ELIMINAR');
+        }
+        echo json_encode($res);
+        die();
+    }
 }

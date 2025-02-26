@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     $(".js-states").select2({
+        theme: 'bootstrap-5',
         placeholder: 'Buscar y agregar usuarios',
         maximumSelectionLength: 5,
         minimumInputLength: 2,

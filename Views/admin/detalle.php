@@ -2,7 +2,7 @@
 
 <div class="card">
     <div class="card-body">
-        <input type="text" id="id_carpeta" value="<?php echo $data['id_carpeta']; ?>">
+        <input type="hidden" id="id_carpeta" value="<?php echo $data['id_carpeta']; ?>">
         <div class="table-responsive">
             <table class="table table-striped table-hover display nowrap" style="width:100%" id="tblDetalle">
                 <thead>
@@ -10,6 +10,7 @@
                         <th></th>
                         <th>Usuario</th>
                         <th>Archivo</th>
+                        <th>fecha</th>
                     </tr>
                 </thead>
                 <tbody>
