@@ -43,9 +43,9 @@ class ArchivosModel extends Query{
 
     }
 
-    public function eliminarCompartido($id){
-        $sql = "UPDATE detalle_archivos SET estado = ? WHERE id = ?";
-        $array = [0, $id];
+    public function eliminarCompartido($fecha, $id){
+        $sql = "UPDATE detalle_archivos SET estado = ?, elimina =? WHERE id = ?";
+        $array = [0, $fecha, $id];
         return $this->save($sql, $array);
     }
 }

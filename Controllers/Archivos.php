@@ -52,8 +52,11 @@ class Archivos extends Controller
                     $dato = $this->model->getUsuario($usuarios[$j]);
                     $result = $this->model->getDetalle($dato['correo'], $arhivos[$i]);
                     if (empty($result)) {
-                        $res = $this->model->registrarDetalle($dato['correo'], $arhivos[$i], 
-                        $this->id_usuario);
+                        $res = $this->model->registrarDetalle(
+                            $dato['correo'],
+                            $arhivos[$i],
+                            $this->id_usuario
+                        );
                     } else {
                         $res = 1;
                     }
@@ -77,8 +80,11 @@ class Archivos extends Controller
     }
 
     // ELIMINAR ARCHIVOS COMPARTIDO
-    public function eliminarCompartido($id){
-        $data = $this->model->eliminarCompartido($id);
+    public function eliminarCompartido($id)
+    {
+        $fecha = date('Y-m-d H:i:s');
+        $nueva = date("Y-m-d H:i:s", strtotime($fecha . '+1 month'));   
+        $data = $this->model->eliminarCompartido($nueva, $id);
         if ($data == 1) {
             $res = array('tipo' => 'success', 'mensaje' => 'ARCHIVO DADO DE BAJA');
         } else {

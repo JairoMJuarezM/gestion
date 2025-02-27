@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', function(){
         columns: [
             { data: 'acciones' },
             { data: 'correo' },
-            { data: 'nombre' }
+            { data: 'nombre' },
+            { data: 'estado' }
             
         ],
         language: {
