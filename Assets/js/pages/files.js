@@ -31,6 +31,7 @@ const usuarios = document.querySelector('#usuarios');
 const btnCompartir = document.querySelector('#btnCompartir');
 const container_archivos = document.querySelector('#container-archivos');
 const btnVerDetalle = document.querySelector('#btnVerDetalle');
+const content_acordeon = document.querySelector('#accordionFlushExample');
 
 document.addEventListener('DOMContentLoaded', function () {
     btnUpload.addEventListener('click', function () {
@@ -178,14 +179,27 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     // VER DETALLE COMPARTIDO
-    btnVerDetalle.addEventListener('click', function(){
+    btnVerDetalle.addEventListener('click', function () {
         window.location = base_url + 'admin/verDetalle/' + id_carpeta.value;
     })
 })
 
 function compartirArchivo(id) {
-    id_archivo.value = id;
-    myModalUser.show();
+    const http = new XMLHttpRequest();
+    const url = base_url + 'archivos/buscarCarpeta/' + id;
+    http.open("GET", url, true);
+    http.send();
+    http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            const res = JSON.parse(this.responseText);
+            console.log(this.responseText);
+            id_archivo.value = res.id;
+            id_carpeta.value = id_carpeta;
+            content_acordeon.classList.add('d-none');
+            myModalUser.show();
+        }
+    };
+
 }
 
 function verArchivos() {
@@ -198,6 +212,7 @@ function verArchivos() {
             const res = JSON.parse(this.responseText);
             let html = '';
             if (res.length > 0) {
+                content_acordeon.classList.remove('d-none');
                 res.forEach(archivo => {
                     html += `<div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value="${archivo.id}" name="archivos[]"

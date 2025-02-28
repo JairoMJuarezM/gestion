@@ -79,6 +79,12 @@ class Archivos extends Controller
         die();
     }
 
+    public function buscarCarpeta($id){
+        $data = $this->model->getCarpeta($id);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        die();
+    }
+
     // ELIMINAR ARCHIVOS COMPARTIDO
     public function eliminarCompartido($id)
     {

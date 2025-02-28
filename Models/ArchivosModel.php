@@ -48,6 +48,12 @@ class ArchivosModel extends Query{
         $array = [0, $fecha, $id];
         return $this->save($sql, $array);
     }
+
+    public function getCarpeta($id_archivo){
+        $sql = "SELECT id, id_carpeta FROM archivos WHERE id = $id_archivo";
+        return $this -> select($sql);
+
+    }
 }
 
 ?>
