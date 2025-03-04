@@ -89,7 +89,7 @@
                             <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                 <div class="accordion-body">
                                     <div id="container-archivos">
-                                        <input type="hidden" id="id_archivo" name="archivos[]">
+                                       
                                     </div>
                                 </div>
                             </div>
